@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Ensure this is correctly set in your environment
+}
+
+model User {
+  id               String  @id @default(uuid())  // UUID for primary key
+  firstName        String  @map("first_name")     // Non-nullable
+  lastName         String? @map("last_name")      // Nullable
+  profileImageURL  String? @map("profile_image_url") // Nullable
+  email            String  @unique               // Unique constraint on email
+  password         String                        // Non-nullable password
+  salt             String                        // Non-nullable salt
+
+  @@map("users")                                // Maps the model to the "users" table
+}
+ 
